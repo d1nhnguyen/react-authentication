@@ -77,8 +77,8 @@ export const signIn = async (req, res) => {
         // send refresh token via cookie
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            secure: true,
-            sameSite: 'none',
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
             maxAge: REFRESH_TOKEN_TTL
         })
 
